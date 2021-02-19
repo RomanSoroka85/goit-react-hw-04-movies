@@ -1,8 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 const Navigation = () => (
-
-
   <ul>
     <li>
       <NavLink to="/" className="" activeClassName="">
@@ -11,7 +9,7 @@ const Navigation = () => (
     </li>
     <li>
       <NavLink to="/shows" className="" activeClassName="">
-        Shows
+        Movies
       </NavLink>
     </li>
   </ul>

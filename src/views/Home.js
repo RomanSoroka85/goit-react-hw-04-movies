@@ -1,14 +1,33 @@
-import React from "react";
-const Home = () => (
-  <div>
-    <h2>Hello</h2>
-    <p>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque, modi.
-      Molestiae voluptatem illo sed, quidem odit blanditiis ad ex voluptatibus
-      maiores asperiores, inventore ea cumque iste sapiente libero? Ratione,
-      sequi?
-    </p>
-  </div>
-);
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import tvAPI from "../services/tv";
 
-export default Home;
+export default class Home extends Component {
+  state = {
+    shows: [],
+  };
+
+  componentDidMount() {
+    tvAPI.fetchShowTrending().then((res) => this.setState({ shows: [...res] }));
+  }
+  render() {
+    const { shows } = this.state;
+    const { match } = this.props;
+    return (
+      <>
+        <h2>Trending today</h2>
+        {!!shows.length && (
+          <ul>
+            {this.state.shows.map((show) => (
+              <li key={show.id}>
+                <Link to={`${match.url}/${show.id}`}>
+                  {show.original_title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </>
+    );
+  }
+}
